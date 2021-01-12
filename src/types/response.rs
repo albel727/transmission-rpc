@@ -37,6 +37,7 @@ pub struct Torrent {
     #[serde(rename = "errorString")]
     pub error_string: Option<String>,
     pub eta: Option<i64>,
+    pub files: Option<Vec<TorrentFiles>>,
     pub id: Option<i64>,
     #[serde(rename = "isFinished")]
     pub is_finished: Option<bool>,
@@ -87,6 +88,14 @@ impl RpcResponseArgument for Torrents<Torrent> {}
 pub struct Trackers {
     pub id: i32,
     pub announce: String,
+}
+
+#[derive(Deserialize, Debug, RustcEncodable, Clone)]
+pub struct TorrentFiles {
+    #[serde(rename = "bytesCompleted")]
+    pub bytes_completed: u64,
+    pub length: u64,
+    pub name: String,
 }
 
 #[derive(Deserialize, Debug, RustcEncodable)]
